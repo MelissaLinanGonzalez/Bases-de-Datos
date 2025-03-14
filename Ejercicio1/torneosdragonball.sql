@@ -41,3 +41,15 @@ VALUES
 UPDATE Torneos
 SET ubicacion = 'Dojo Profe'
 WHERE ubicacion = 'Dojo Tenkaichi';
+
+-- Crear la tabla
+CREATE TABLE personajes (
+    nombre VARCHAR(50),
+    raza VARCHAR(50),
+    super VARCHAR(10)
+);
+
+-- Insertar los valores en la tabla
+INSERT INTO personajes (nombre, raza, super) VALUES ('Goku', 'Saiyan', 'Super');
+INSERT INTO personajes (nombre, raza, super) VALUES ('Vegeta', 'Saiyan Elite', 'Super');
+INSERT INTO personajes (nombre, raza, super) VALUES ('Raditz', 'Saiyan', NULL);
