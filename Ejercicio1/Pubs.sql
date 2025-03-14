@@ -1,0 +1,68 @@
+DROP DATABASE IF EXISTS Pubs;
+
+CREATE DATABASE IF NOT EXISTS Pubs;
+
+USE Pubs;
+
+CREATE TABLE IF NOT EXISTS Localidad (
+    Cod_localidad INT AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Cod_localidad)
+);
+
+CREATE TABLE IF NOT EXISTS Empleado (
+    DNI_EMPLEADO VARCHAR(9) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL,
+    Domicilio VARCHAR(50),
+    PRIMARY KEY (DNI_EMPLEADO)
+);
+
+CREATE TABLE IF NOT EXISTS Pub (
+    Cod_pub INT AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    Licencia_Fiscal VARCHAR(50) NOT NULL,
+    Domicilio VARCHAR(50) NOT NULL,
+    Fecha_Apertura DATE NOT NULL,
+    Horario ENUM('HOR1', 'HOR2', 'HOR3') NOT NULL,
+    Cod_localidad INT NOT NULL,
+    PRIMARY KEY (Cod_pub),
+    FOREIGN KEY (Cod_localidad) REFERENCES Localidad(Cod_localidad)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Pub_Empleado (
+    Cod_pub INT NOT NULL,
+    DNI_EMPLEADO VARCHAR(9) NOT NULL,
+    FUNCION ENUM('Camarero', 'Seguridad', 'Limpieza') NOT NULL,
+    PRIMARY KEY (Cod_pub, DNI_EMPLEADO),
+    FOREIGN KEY (Cod_pub) REFERENCES Pub(Cod_pub)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (DNI_EMPLEADO) REFERENCES Empleado(DNI_EMPLEADO)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Titular (
+    DNI_Titular VARCHAR(9) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL,
+    Domicilio VARCHAR(50),
+    Cod_Pub INT,
+    PRIMARY KEY (DNI_Titular),
+    FOREIGN KEY (Cod_Pub) REFERENCES Pub(Cod_Pub)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Existencias (
+    Cod_Articulo INT AUTO_INCREMENT,
+    Nombre VARCHAR(50) NOT NULL,
+    Cantidad INT NOT NULL,
+    Precio DECIMAL(5, 2) CHECK(Precio > 0),
+    Cod_Pub INT NOT NULL,
+    PRIMARY KEY (Cod_Articulo),
+    FOREIGN KEY (Cod_Pub) REFERENCES Pub(Cod_Pub)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
