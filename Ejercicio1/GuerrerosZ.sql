@@ -16,4 +16,5 @@ VALUES
     ('Vegeta', 'Saiyan', 9200),
     ('Gohan', 'Saiyan-mestizo', 8700),
     ('Piccolo', 'Namek', 7500),
-    ('Krillin', 'Humano', 4000);
+    ('Krillin', 'Humano', 4000),
+    ('Yamcha', 'Humano', NULL);
